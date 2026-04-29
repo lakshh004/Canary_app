@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-canary
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-app
+      track: canary
+  template:
+    metadata:
+      labels:
+        app: flask-app
+        track: canary
+    spec:
+      imagePullSecrets:
+      - name: acr-secret
+      containers:
+      - name: flask-app
+        image: lakshyaacr.azurecr.io/flask-app:canary
+        env:
+        - name: APP_VERSION
+          value: "v2"
+        ports:
+        - containerPort: 5000

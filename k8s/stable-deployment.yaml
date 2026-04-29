@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-stable
+spec:
+  replicas: 9
+  selector:
+    matchLabels:
+      app: flask-app
+      track: stable
+  template:
+    metadata:
+      labels:
+        app: flask-app
+        track: stable
+    spec:
+      imagePullSecrets:
+      - name: acr-secret
+      containers:
+      - name: flask-app
+        image: lakshyaacr.azurecr.io/flask-app:stable
+        env:
+        - name: APP_VERSION
+          value: "v1"
+        ports:
+        - containerPort: 5000
