@@ -21,7 +21,6 @@ stages:
         command: buildAndPush
         dockerfile: Dockerfile
         tags: canary
-        arguments: --platform linux/amd64
 
 - stage: DeployCanary
   dependsOn: Build
@@ -50,13 +49,19 @@ stages:
         connectionType: kubernetesServiceConnection
         kubernetesServiceConnection: aks-connection
         manifests: k8s/service.yaml
+
+    # ✅ FIX: login to cluster before kubectl
+    - task: Kubernetes@1
+      inputs:
+        connectionType: Kubernetes Service Connection
+        kubernetesServiceEndpoint: aks-connection
+        command: login
+
     - script: |
         echo "Waiting 2 minutes for canary to stabilize..."
         sleep 120
         kubectl rollout status deployment/app-canary --timeout=60s
       displayName: Check canary health
-      env:
-        KUBECONFIG: $(KUBECONFIG)
 
 - stage: Promote
   dependsOn: HealthCheck
@@ -72,7 +77,7 @@ stages:
         command: buildAndPush
         dockerfile: Dockerfile
         tags: stable
-        arguments: --platform linux/amd64
+
     - task: KubernetesManifest@1
       inputs:
         action: deploy
