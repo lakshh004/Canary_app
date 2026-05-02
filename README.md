@@ -131,7 +131,8 @@ Verified by hitting the endpoint 20 times and observing the version distribution
 for i in {1..20}; do curl -s http://<EXTERNAL_IP>/ ; echo; done
 ```
 
-<!-- SS 1: Replace with your curl loop screenshot showing v1/v2 mix -->
+<img width="786" height="513" alt="curl" src="https://github.com/user-attachments/assets/35bfaee8-ed00-4665-8b9f-f71dc18bfd81" />
+
 
 ---
 
@@ -150,14 +151,10 @@ for i in {1..20}; do curl -s http://<EXTERNAL_IP>/ ; echo; done
 &nbsp;
 
 
-<img width="786" height="513" alt="curl" src="https://github.com/user-attachments/assets/34ccffa5-f308-41cf-a668-18b286cfd104" />
-
-
-<p align="center"><strong>curl command to check if 90:10 ratio is working.</strong></p>
-
-&nbsp;
 
 <img width="1458" height="924" alt="browser v1" src="https://github.com/user-attachments/assets/f7aa6d5a-ec3f-4aa8-8a63-698e0bca0f94" />
+<img width="1460" height="910" alt="browser v2" src="https://github.com/user-attachments/assets/3b8c8a26-4c45-403a-b36f-04795ce88832" />
+
 
 <p align="center"><strong>Live app responding from AKS LoadBalancer - canary deployment serving traffic.</strong></p>
 
@@ -185,7 +182,7 @@ for i in {1..20}; do curl -s http://<EXTERNAL_IP>/ ; echo; done
 
 This project taught me Azure's DevOps toolchain by building something that actually required understanding it, not just following steps. The most time-consuming part wasn't writing the pipeline YAML, it was the ACR authentication issue: the AKS kubelet identity and the control plane identity are separate, and the `--attach-acr` flag assigns pull permissions to the wrong one. Debugging that forced me to understand how AKS managed identities actually work under the hood.
 
-The canary pattern itself is deceptively simple at the pod level. Nine replicas plus one, behind a single service — and you have a real traffic split with zero additional infrastructure. What makes it meaningful is the pipeline logic around it: a deployment that automatically decides whether to promote or roll back based on observed health, not manual approval.
+The canary pattern itself is deceptively simple at the pod level. Nine replicas plus one, behind a single service, and you have a real traffic split with zero additional infrastructure. What makes it meaningful is the pipeline logic around it: a deployment that automatically decides whether to promote or roll back based on observed health, not manual approval.
 
 The cross-architecture build issue was also a good reminder that local and cloud environments aren't the same machine. Building for `linux/amd64` explicitly on Apple Silicon is the kind of thing that only surfaces when you're actually deploying to real infrastructure.
 
