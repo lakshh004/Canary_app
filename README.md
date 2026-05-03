@@ -34,6 +34,10 @@ Single-node Kubernetes cluster running all workloads:
 
 The traffic split requires no service mesh or ingress controller. One Kubernetes Service selects all pods with the shared label. With 9 stable and 1 canary replica behind a single service, the load balancer distributes requests proportionally.
 
+<img width="2457" height="1708" alt="image" src="https://github.com/user-attachments/assets/25f7d055-191f-4e84-9181-4e52f29898ef" />
+<p align="center"><strong>Architecture Diagram </strong></p>
+
+
 ### ACR (lakshyaacr)
 
 Stores `flask-app:stable` and `flask-app:canary` image tags. AKS pulls images using a Kubernetes `imagePullSecret` backed by ACR admin credentials.
@@ -70,7 +74,8 @@ stages:
 
 <img width="1148" height="649" alt="all 4 stages green" src="https://github.com/user-attachments/assets/94a82023-3f42-48d0-8b10-20f54cd43042" />
 
-*Azure DevOps pipeline - all 4 stages passing: Build → DeployCanary → HealthCheck → Promote.*
+<p align="center"><strong>*Azure DevOps pipeline - all 4 stages passing: Build → DeployCanary → HealthCheck → Promote.*</strong></p>
+
 
 ---
 
