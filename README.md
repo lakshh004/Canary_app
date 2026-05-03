@@ -34,13 +34,13 @@ Single-node Kubernetes cluster running all workloads:
 
 The traffic split requires no service mesh or ingress controller. One Kubernetes Service selects all pods with the shared label. With 9 stable and 1 canary replica behind a single service, the load balancer distributes requests proportionally.
 
-<img width="2457" height="1708" alt="image" src="https://github.com/user-attachments/assets/25f7d055-191f-4e84-9181-4e52f29898ef" />
-<p align="center"><strong>Architecture Diagram </strong></p>
-
 
 ### ACR (lakshyaacr)
 
 Stores `flask-app:stable` and `flask-app:canary` image tags. AKS pulls images using a Kubernetes `imagePullSecret` backed by ACR admin credentials.
+
+<img width="2457" height="1708" alt="image" src="https://github.com/user-attachments/assets/25f7d055-191f-4e84-9181-4e52f29898ef" />
+<p align="center"><strong>Architecture Diagram </strong></p>
 
 ---
 
@@ -74,7 +74,7 @@ stages:
 
 <img width="1148" height="649" alt="all 4 stages green" src="https://github.com/user-attachments/assets/94a82023-3f42-48d0-8b10-20f54cd43042" />
 
-<p align="center"><strong>*Azure DevOps pipeline - all 4 stages passing: Build → DeployCanary → HealthCheck → Promote.*</strong></p>
+<p align="center"><strong>Azure DevOps pipeline - all 4 stages passing: Build → DeployCanary → HealthCheck → Promote.</strong></p>
 
 
 ---
@@ -107,7 +107,9 @@ Applies `canary-deployment.yaml` to AKS, bringing 1 new pod live alongside the 9
 
 <img width="508" height="173" alt="kubectl get pods" src="https://github.com/user-attachments/assets/5aaf93e3-c4a8-4a36-9821-85d2b9d83bed" />
 
-*AKS cluster - 9 stable pods and 1 canary pod all Running.*
+<p align="center"><strong>AKS cluster - 9 stable pods and 1 canary pod all Running.</strong></p>
+
+
 
 ---
 
@@ -142,14 +144,17 @@ for i in {1..20}; do curl -s http://<EXTERNAL_IP>/ ; echo; done
 
 <img width="786" height="513" alt="curl output" src="https://github.com/user-attachments/assets/35bfaee8-ed00-4665-8b9f-f71dc18bfd81" />
 
-*~1-in-10 responses served by the canary pod, confirming pod-level load distribution.*
+<p align="center"><strong>~1-in-10 responses served by the canary pod, confirming pod-level load distribution.</strong></p>
+
+
 
 The live app responding from both versions:
 
 <img width="1458" height="924" alt="browser v1" src="https://github.com/user-attachments/assets/f7aa6d5a-ec3f-4aa8-8a63-698e0bca0f94" />
 <img width="1460" height="910" alt="browser v2" src="https://github.com/user-attachments/assets/3b8c8a26-4c45-403a-b36f-04795ce88832" />
 
-*v1 (stable) and v2 (canary) both serving live traffic from the AKS LoadBalancer.*
+<p align="center"><strong>v1 (stable) and v2 (canary) both serving live traffic from the AKS LoadBalancer.
+</strong></p>
 
 ---
 
@@ -159,7 +164,9 @@ Pod count alert configured on `canary-aks`. Fires an email notification if the a
 
 <img width="1244" height="588" alt="alerts" src="https://github.com/user-attachments/assets/56175c7d-315d-4d89-9033-c0af790ef0c0" />
 
-*Azure Monitor alert configured to fire when pod count drops below 8.*
+<p align="center"><strong>Azure Monitor alert configured to fire when pod count drops below 8.
+</strong></p>
+
 
 ---
 
