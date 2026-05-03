@@ -39,7 +39,8 @@ The traffic split requires no service mesh or ingress controller. One Kubernetes
 
 Stores `flask-app:stable` and `flask-app:canary` image tags. AKS pulls images using a Kubernetes `imagePullSecret` backed by ACR admin credentials.
 
-<img width="2457" height="1708" alt="image" src="https://github.com/user-attachments/assets/25f7d055-191f-4e84-9181-4e52f29898ef" />
+<img width="1184" height="738" alt="2026-05-03_11-00-37" src="https://github.com/user-attachments/assets/883b403f-6413-4575-8d7a-4ce4b30a93b9" />
+
 <p align="center"><strong>Architecture Diagram </strong></p>
 
 ---
