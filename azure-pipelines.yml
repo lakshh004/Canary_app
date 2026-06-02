@@ -50,7 +50,7 @@ stages:
         kubernetesServiceConnection: aks-connection
         manifests: k8s/service.yaml
 
-    # ✅ FIX: login to cluster before kubectl
+  
     - task: Kubernetes@1
       inputs:
         connectionType: Kubernetes Service Connection
